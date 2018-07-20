@@ -8,6 +8,7 @@ void come_on_packet(parse *ps)
     const u_int8_t *packet;
     struct pcap_pkthdr *pkthdr;
     pcd=pcap_open_live(ps->using_interface(),BUFSIZ,1,1,errbuf);
+    int number=1;
     while(true)
     {
         ret=pcap_next_ex(pcd, &pkthdr, &packet);
@@ -34,11 +35,16 @@ void come_on_packet(parse *ps)
 //                      cout << ">> TCP packet is comming" << endl;
                         struct tcphdr *tcph = (struct tcphdr*)(packet+sizeof(ether_header)+iph->ihl*4);
                         packet+=sizeof(ether_header)+iph->ihl*4+tcph->doff*4;
-                        ps->get_tcp_header_and_data(tcph,(uint8_t*)packet);
-                        ps->data_print();
+                        if(packet_len - int(sizeof(ether_header) + iph->ihl*4 + tcph->doff*4) > 0 && ntohs(iph->tot_len) > 60)
+                        {
+                            cout << "\n======================PACKET INFO=====================" << number <<endl;
+                            ps->get_tcp_header_and_data(tcph,(uint8_t*)packet);
+                            ps->data_print();
+                            number++;
+                        }
                     }
                 }
-//              if(ep->ether_type==ntohs(ETHERTYPE_ARP))
+//              if(ep->ether_type==ntohs(ETHERTYPE_ARP))r
 //                  cout << "ARP packet is comming" << endl;
 
             }

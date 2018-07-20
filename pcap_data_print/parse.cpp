@@ -30,7 +30,6 @@ void parse::get_tcp_header_and_data(struct tcphdr *tp, uint8_t *packet){
 void parse::data_print(){
     char str_mac[15];
     char str_ip[32];
-    cout << "\n======================PACKET INFO=====================\n";
     this->print_mac(str_mac,this->eh->ether_shost);
     cout << "Src MAC = " << str_mac;
     this->print_mac(str_mac,this->eh->ether_dhost);
