@@ -27,7 +27,7 @@ void parse::get_tcp_header_and_data(struct tcphdr *tp, uint8_t *packet){
     this->th=tp;
     memcpy(this->packet,packet,16);
 }
-void parse::data_print(){
+void parse::header_print(){
     char str_mac[15];
     char str_ip[32];
     this->print_mac(str_mac,this->eh->ether_shost);
@@ -40,6 +40,8 @@ void parse::data_print(){
     cout << "Dst IP = " << str_ip << endl;
     cout << "Src Port = " << ntohs(this->th->source) << endl;
     cout << "Dst Port = " << ntohs(this->th->dest) << endl;
+}
+void parse::data_print(){
     for(int i=0; i<16; i++)
         printf("%02x ", this->packet[i]);
     cout << endl;

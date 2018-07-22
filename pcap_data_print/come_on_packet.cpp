@@ -35,13 +35,12 @@ void come_on_packet(parse *ps)
 //                      cout << ">> TCP packet is comming" << endl;
                         struct tcphdr *tcph = (struct tcphdr*)(packet+sizeof(ether_header)+iph->ihl*4);
                         packet+=sizeof(ether_header)+iph->ihl*4+tcph->doff*4;
+                        cout << "\n======================PACKET INFO "<< number << "=====================" <<   endl;
+                        ps->get_tcp_header_and_data(tcph,(uint8_t*)packet);
+                        ps->header_print();
+                        number++;
                         if(ntohs(iph->tot_len)-iph->ihl*4-tcph->doff*4>=16)
-                        {
-                            cout << "\n======================PACKET INFO "<< number << "=====================" <<   endl;
-                            ps->get_tcp_header_and_data(tcph,(uint8_t*)packet);
                             ps->data_print();
-                            number++;
-                        }
                     }
                 }
 //              if(ep->ether_type==ntohs(ETHERTYPE_ARP))r
