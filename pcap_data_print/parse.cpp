@@ -41,8 +41,8 @@ void parse::header_print(){
     cout << "Src Port = " << ntohs(this->th->source) << endl;
     cout << "Dst Port = " << ntohs(this->th->dest) << endl;
 }
-void parse::data_print(){
-    for(int i=0; i<16; i++)
+void parse::data_print(int length){
+    for(int i=0; i<length; i++)
         printf("%02x ", this->packet[i]);
     cout << endl;
 }

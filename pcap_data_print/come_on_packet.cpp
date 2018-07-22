@@ -40,12 +40,11 @@ void come_on_packet(parse *ps)
                         ps->header_print();
                         number++;
                         if(ntohs(iph->tot_len)-iph->ihl*4-tcph->doff*4>=16)
-                            ps->data_print();
+                            ps->data_print(16);
                     }
                 }
 //              if(ep->ether_type==ntohs(ETHERTYPE_ARP))r
 //                  cout << "ARP packet is comming" << endl;
-
             }
             break;
             case 0:

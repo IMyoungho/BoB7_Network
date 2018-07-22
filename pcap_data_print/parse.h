@@ -27,7 +27,7 @@ public:
     void get_ip_header(struct iphdr *ip);
     void get_tcp_header_and_data(struct tcphdr *tp, uint8_t *packet);
     void header_print();
-    void data_print();
+    void data_print(int length);
 };
 
 
