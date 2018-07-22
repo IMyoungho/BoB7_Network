@@ -17,7 +17,7 @@ void come_on_packet(parse *ps)
             case 1:
             {
 //              cout << "Packet is coming" << endl;
-                int packet_len = pkthdr->len;
+                //int packet_len = pkthdr->len;
                 struct ether_header *ep= (struct ether_header*)packet;
                 ps->get_ether_header(ep);
                 if(ep->ether_type==ntohs(ETHERTYPE_IP))
@@ -35,9 +35,9 @@ void come_on_packet(parse *ps)
 //                      cout << ">> TCP packet is comming" << endl;
                         struct tcphdr *tcph = (struct tcphdr*)(packet+sizeof(ether_header)+iph->ihl*4);
                         packet+=sizeof(ether_header)+iph->ihl*4+tcph->doff*4;
-                        if(packet_len - int(sizeof(ether_header) + iph->ihl*4 + tcph->doff*4) > 0 && ntohs(iph->tot_len) > 60)
+                        if(ntohs(iph->tot_len)-iph->ihl*4-tcph->doff*4>=16)
                         {
-                            cout << "\n======================PACKET INFO=====================" << number <<endl;
+                            cout << "\n======================PACKET INFO "<< number << "=====================" <<   endl;
                             ps->get_tcp_header_and_data(tcph,(uint8_t*)packet);
                             ps->data_print();
                             number++;
