@@ -25,12 +25,12 @@ void come_on_packet(parse *ps)
 //                  cout << "IP packet is comming" <<endl;
                     struct iphdr *iph = (struct iphdr*)(packet+sizeof(ether_header));
                     ps->get_ip_header(iph);
-                    if(iph->protocol==0x11)
+                    if(iph->protocol==IPPROTO_UDP)
                     {
 //                      cout << ">> UDP packet is comming" << endl;
 //                      struct udphdr *udph = (struct udphdr*)(packet+sizeof(ether_header)+iph->ihl*4);
                     }
-                    else if(iph->protocol==0x06)
+                    else if(iph->protocol==IPPROTO_TCP)
                     {
 //                      cout << ">> TCP packet is comming" << endl;
                         struct tcphdr *tcph = (struct tcphdr*)(packet+sizeof(ether_header)+iph->ihl*4);
